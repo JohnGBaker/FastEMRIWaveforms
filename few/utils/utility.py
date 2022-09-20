@@ -18,6 +18,7 @@
 
 import requests
 import os
+import shutil
 import subprocess
 import warnings
 
@@ -788,8 +789,9 @@ def check_for_file_download(fp, few_dir, version_string=None):
         subprocess.run(["wget", "--no-check-certificate", url])
 
         # move it into the files folder
-        os.rename(fp, few_dir + "few/files/" + fp)
-
+        shutil.copy(fp, few_dir + "few/files/" + fp)
+        os.remove(fp)
+        #os.rename(fp, few_dir + "few/files/" + fp)
 
 def wrapper(*args, **kwargs):
     """Function to convert array and C/C++ class arguments to ptrs
